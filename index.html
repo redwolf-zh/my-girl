@@ -1,36 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Code</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>芙蓉傻屌~</title>
     <style>
-        body{
-            margin: 0;
-            overflow: hidden;
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      .text {
+        font-size: 2.5em;
+        font-weight: 600;
+        color: white;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+      .text::before {
+        content: attr(data-text);
+        position: absolute;
+        left: -2px;
+        width: 100%;
+        background: black;
+        text-shadow: 2px 0 red;
+        animation: animation-before 3s infinite linear alternate-reverse;
+      }
+      .text::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 2px;
+        width: 100%;
+        background: black;
+        text-shadow: -2px 0 blue;
+        animation: animation-after 3s infinite linear alternate-reverse;
+      }
+      @keyframes animation-before {
+        0% {
+          clip-path: inset(0 0 0 0);
         }
+        100% {
+          clip-path: inset(0.62em 0 0.29em 0);
+        }
+      }
+      @keyframes animation-after {
+        0% {
+          clip-path: inset(0 0 0 0);
+        }
+        100% {
+          clip-path: inset(0.29em 0 0.62em 0);
+        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
-<canvas id="myCanvas"></canvas>
-<script>
-    const width = document.getElementById("myCanvas").width = screen.availWidth;
-    const height = document.getElementById("myCanvas").height = screen.availHeight;
-    const ctx = document.getElementById("myCanvas").getContext("2d");
-    const arr = Array(Math.ceil(width / 10)).fill(0);
-    const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
+  <body>
+    <canvas id="myCanvas"></canvas>
+    <div class="text" data-text="徐芙蓉是傻屌~">徐芙蓉是傻屌~</div>
+    <script>
+      const width = (document.getElementById("myCanvas").width =
+        screen.availWidth);
+      const height = (document.getElementById("myCanvas").height =
+        screen.availHeight);
+      const ctx = document.getElementById("myCanvas").getContext("2d");
+      const arr = Array(Math.ceil(width / 10)).fill(0);
+      const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
 
-function rain() {
-    ctx.fillStyle = "rgba(0,0,0,0.05)";
-    ctx.fillRect(0, 0, width, height);
-    ctx.fillStyle = "#0f0";
-    arr.forEach(function (value, index) {
-        ctx.fillText(str[Math.floor(Math.random() * str.length)], index * 10, value + 10);
-        arr[index] = value >= height || value > 8888 * Math.random() ? 0 : value + 10;
-    });
-}
+      function rain() {
+        ctx.fillStyle = "rgba(0,0,0,0.05)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = "#0f0";
+        arr.forEach(function (value, index) {
+          ctx.fillText(
+            str[Math.floor(Math.random() * str.length)],
+            index * 10,
+            value + 10
+          );
+          arr[index] =
+            value >= height || value > 8888 * Math.random() ? 0 : value + 10;
+        });
+      }
 
-setInterval(rain, 30);
-</script>
-</body>
+      setInterval(rain, 30);
+    </script>
+  </body>
 </html>
